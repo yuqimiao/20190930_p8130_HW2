@@ -1,0 +1,201 @@
+---
+title: "P8130_HW2_ym2771"
+author: "Yuqi Miao"
+date: "9/30/2019"
+output: html_document
+---
+
+```{r,message=FALSE}
+library(tidyverse)
+library(readxl)
+```
+
+
+# Problem 1
+
+## a) For all populations:
+Use random variable X to denote The number of people have uveal melanoma in the US:
+$$X\sim binomial(8.5\times10^6,\;5\times10^{-6})$$
+$$P(X = 30) = \begin{pmatrix}N\\k\end{pmatrix}p^kq^{n-k} =0.00934 $$
+
+## b) For different races:
+
+### For Asians
+
+Use random variable $X_A$ to denote The number of people have uveal melanoma in the US:
+$$X_A\sim binomial(1.19\times10^6,\;0.39\times10^{-6})$$
+$$P(X_A = 30) = \begin{pmatrix}N\\k\end{pmatrix}p^kq^{n-k} =2.36\times10^{-43}$$
+### For Blacks
+
+Use random variable $X_B$ to denote The number of people have uveal melanoma in the US:
+$$X_B\sim binomial(2.0655\times10^6,\;0.31\times10^{-6})$$
+$$P(X_B = 30) = \begin{pmatrix}N\\k\end{pmatrix}p^kq^{n-k} =3.09\times10^{-39}$$
+
+### For non-Hispanic White
+
+Use random variable $X_N$ to denote The number of people have uveal melanoma in the US:
+$$X_N\sim binomial(3.638\times10^6,\;6.02\times10^{-6})$$
+$$P(X_A = 30) = \begin{pmatrix}N\\k\end{pmatrix}p^kq^{n-k} =0.019$$
+
+### Summary
+
+# Problem 2
+
+## a) t
+
+### For intervention group:
+
+* This test focuses on the BMI changes of intervention groups between baseline and 6 months follow-up groups.The parameter of interest is $\overline d\;=\;X_1-X_2$.
+
+* Hypothesis: 
+
+$$H_0: \overline d\;=\;X_1-X_2\;=\;0$$
+$$H_1:\overline d\;=\;X_1-X_2\;\neq\;0$$
+
+
+* For this test is using to tell the difference of same objects at different time, it fits the condition of a paired t test, and because we don't focus on only one side of the problem, this is a 2-side hypothesis test. The significance value is $\alpha = 0.05$
+
+$$t_{stat}\;=\;\frac{\overline d}{s/\sqrt n}\;=\;\frac{-0.76}{1.44/\sqrt{36}}\;=\;-3.17$$
+
+$$P_r(t<t_{stat,\;35})\;=\;2\times P(t<-3.17)\;=\;0.003<\;\alpha = 0.05$$
+Thus, reject $H_0$, which means the difference between baseline and 6 months follow-up of intervention group is **significantly different from 0**, i.e., there is reason to **believe that difference between baseline and 6 months follow-up of intervention group exists**. 
+
+
+### For control group:
+
+* This test focuses on the BMI changes of control groups between baseline and 6 months follow-up groups.The parameter of interest is $\overline d\;=\;X_1-X_2$.
+
+* Hypothesis: 
+
+$$H_0: \overline d\;=\;X_1-X_2\;=\;0$$
+$$H_1:\overline d\;=\;X_1-X_2\;\neq\;0$$
+
+* For this test is using to tell the difference of same objects at different time, it fits the condition of a paired t test. and the significance value is $\alpha = 0.05$
+
+$$t_{stat}\;=\;\frac{\overline d}{s/\sqrt n}\;=\;\frac{0.28}{0.97/\sqrt{36}}\;=\;1.73$$
+
+$$P_r(t<t_{stat})\;=\;2\times P(t>1.73)\;=\;0.09 >\alpha = 0.05,\;df = 35$$
+Thus, we don't have enough evidence to reject $H_0$, which means the difference between baseline and 6 months follow-up of control group is **not significantly different from 0**, i.e., there is no reason to believe that there is difference between baseline and 6 months follow-up of the BMI of control group. 
+
+
+## b)
+
+* This test focuses on the BMI changes between intervention and control groups. The interested parameter is $\Delta\;=\;{\overline X}_1-\;{\overline X}_2$;
+
+
+* Because two groups are independent and the population variation $\sigma^2$ is unknown, we need to use F-test to tell if $\sigma_1^2$ and $\sigma_2^2$ are significantly different.
+
+* Hypothesis for f test:
+
+$$H_0: F =\frac{\sigma_1^2}{\sigma_2^2} = 1$$
+$$H_0: F =\frac{\sigma_1^2}{\sigma_2^2} \neq 1$$
+
+* Calculate the statistics and p-value:
+
+$$F_{stat} = \frac{\sigma_1^2}{\sigma_2^2} = \frac{1.44^2}{0.97^2} = 2.20$$
+$$p-value = P(F>F_{stat})=P(F\;>2.20)\;=\;0.0005\;<\;\alpha\;=\;0.05,df = 71,71$$
+
+* Thus reject $H_0$, which means $\sigma_1^2$ is not equal to $\sigma_2^2$, under this circumstances, the t test of control and intervention groups should be:
+
+* Hypothesis For t test:
+
+$$H_0: \Delta\;=\;X_1-X_2\;=\;0$$
+
+$$H_1:\Delta\;=\;X_1-X_2\;\neq\;0$$
+
+* Calculate the statistics:
+
+$$t_{stat}\;=\;\frac{\overline{X_1\;}-\;\overline{X_2}}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}\;=\;\frac{-0.76\;-\;0.28}{\sqrt{\displaystyle\frac{1.44^2+0.97^2}{72}}}\;=\;-5.08,df = 71 $$
+$$P_r(t<t_{stat})\;=\;2\times P(t<-5.08)\;=\;2.92\times10^-6<\;\alpha = 0.05,df = 71$$
+
+* reject $H_0$, which means there are significant difference between the BMI of control and intervention group.
+
+## c) 
+
+### What are the main underlying assumptions for the tests performed in parts a) and b)?
+
+```{r,echo = F,message=FALSE}
+bmi <- 
+    read_excel("Exercise.xlsx", range = "A2:N74") %>%
+    select(Group,PRE = PRE...13,POST = POST...14 )
+
+inter_g <- bmi %>%
+    filter(Group == 1) %>%
+    mutate(difference = POST-PRE) %>%
+    select(-Group,)
+contr_g <- bmi %>%
+    filter(Group == 0)%>%
+    mutate(difference = POST-PRE) %>%
+    select(-Group) 
+```
+
+a) **Two tests in a) are all paired T tests**.
+
+**For intervention group**, the underlying assumptions is that the BMI of the overweight/obese low-income virally suppressed HIV positive subjects who are willing to accept intervention at baseline is normally distributed with mean `r round(mean(inter_g$PRE),2)` and variance `r round((sd(inter_g$PRE))^2,2)` and at follow-up group with mean `r round(mean(inter_g$PRE),2)`+$\Delta$ and variance `r round((sd(inter_g$PRE))^2,2)`.
+
+**For control group**, the underlying assumptions is that the BMI of the overweight/obese low-income virally suppressed HIV positive subjects who are not willing to accept intervention at baseline is normally distributed with mean `r round(mean(contr_g$PRE),2)` and variance `r round((sd(contr_g$PRE))^2,2)` and at follow-up group with mean `r round(mean(contr_g$PRE),2)`+$\Delta$ and variance `r round((sd(contr_g$PRE))^2,2)`
+
+b) **Test in b) is independent T test**.
+the underlying assumptions is that the difference of BMI of the overweight/obese low-income virally suppressed HIV positive subjects who are willing to accept intervention between baseline and follow-up is normally distributed with mean `r round(mean(inter_g$difference),2)` and variance `r round((sd(inter_g$difference))^2,2)` , and at the difference of control group with mean `r round(mean(contr_g$difference),2)`+$\Delta$ and variance `r round((sd(contr_g$difference))^2 ,2)`.
+
+
+i. Use graphical displays to check the normality assumption and discuss the findings.
+
+```{r,echo = F}
+plot_data <- cbind(inter_g[,1:2],contr_g[,1:2],inter_g[,3],contr_g[,3])
+plot_names <- c("Intervention Group Baseline Histogram","Intervention Group Follow-up Histogram","Control Group Baseline Histogram", "Control Group Follow-up Histogram","Intervention Group Difference Histogram","Control Group Difference Histogram")
+
+par(mfrow = c(3,2))
+for (i in 1:6) {
+    x <- plot_data[,i]
+    h<-hist(x, breaks=9, col="lightblue", xlab= NULL,main = plot_names[i]) 
+    xfit<-seq(min(x),max(x),length=40) 
+    yfit<-dnorm(xfit,mean=mean(x),sd=sd(x)) 
+    yfit <- yfit*diff(h$mids[1:2])*length(x) 
+    lines(xfit, yfit, col="darkblue", lwd=2)
+}
+```
+
+
+```{r}
+plot_names_qq <- c("Intervention Group Baseline QQplot","Intervention Group Follow-up QQplot","Control Group Baseline QQplot", "Control Group Follow-up QQplot","Intervention Group Difference QQplot","Control Group Difference QQplot")
+par(mfrow = c(3,2))
+for (i in 1:6) {
+    x <- plot_data[,i]
+    qqnorm(x,main = plot_names_qq[i])
+    qqline(x)
+}
+
+    
+```
+
+ii. If normality is questionable, how does this affect the tests validity and what are some
+possible remedies?
+
+As shown in the graphs above, the distributions of the BMI of intervention groups in baseline and follow-up are showing an obvious right skewness. As the underlying assumption of paired t-test is that the value from both baseline and follow-up groups should in normal distribution, this skewness may reduce the validity of the tests.
+
+But for the sample mean comparision with large sample size(usualy consider n > 30 as large sample), the skewness of underlying population may not have huge effects on the final result as for samples means from any population(may or may not obey normal distribution) will approximate to `standard normal distribution`, and when the sample size is large, `t-test is approximate to standard normal distribution`. Thus, in this experiment, since the sample size is pretty large, the bias caused by assumption distribution may be adjusted.
+
+# Problem 3
+
+$X$ is the number of closed restraunts in New York.
+
+$$X\sim binomial(20,0.6)$$
+$$ np = 20\times0.6 = 12>10$$
+$$ n(1-p) = 20\times0.4 = 8 <10$$
+$$ np(1-p) = 20\times0.6\times0.4 = 4.8 \neq 12$$
+Thus there is no proper approximation to this binomial distribution.
+$$P(X\geq10)\;=1-P(X<10)\;=\;1-\sum_{i\;=\;0}^9\begin{pmatrix}20\\i\end{pmatrix}\times{(0.6)}^i\times{(0.4)}^{n-i}\;=\;0.76$$
+
+### comment
+
+
+# Problem 4
+
+
+
+
+
+
+
+
